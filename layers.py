@@ -306,7 +306,6 @@ def temporal_affine_backward(dout, cache):
     return dx, dw, db
 
 
-
 def temporal_softmax_loss(x, y, mask):
     """
     This function is adapted from CS231n.
@@ -315,7 +314,7 @@ def temporal_softmax_loss(x, y, mask):
     Cross-entropy loss is calculated, summed and averaged over all time steps across the batch.
     Arguments:
     - x: input scores for all vocabulary elements with shape of (N, T, V)
-    - y: ground-truth indices at each time step with shape of (N, T), each element of which is in [0, V]
+    - y: ground-truth indices at each time step with shape of (N, T), each element of which is in [0, V)
     - mask: boolean array with shape of (N, T) indicating whether the scores at x[n, t] should contribute to the loss
     Outputs:
     - loss: float of loss
@@ -341,7 +340,7 @@ def word_embedding_forward(x, W):
     Run a forward pass for word embeddings.
     The dimensions are consistent with parameters in temporal softmax loss.
     Arguments:
-    - x: integer array with shape of (N, T) giving indices of words, each of which lies in [0, V]
+    - x: integer array with shape of (N, T) giving indices of words, each of which lies in [0, V)
     - W: weight matrix with shape of (V, D) giving word vectors for all words.
     Outputs:
     - out: array with shape of (N, T, D) giving word vectors for all input words.
