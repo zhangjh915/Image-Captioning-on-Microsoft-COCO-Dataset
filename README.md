@@ -1,2 +1,2 @@
-# Image-Captioning-on-Microsoft-COCO-Dataset
+# Image Captioning on Microsoft COCO Dataset
 Still working on it...
