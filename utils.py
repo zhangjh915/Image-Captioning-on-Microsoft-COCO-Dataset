@@ -7,7 +7,7 @@ import h5py
 DATA_DIR = 'data/coco_captioning'  # define the dataset path
 
 
-def load_coco_dataset(data_dir=DATA_DIR, PCA_features=True):
+def load_coco_dataset(data_dir=DATA_DIR, PCA_features=True, max_train=None):
     data = {}
     caption_file = os.path.join(data_dir, 'coco2014_captions.h5')
     with h5py.File(caption_file, 'r') as f:  # read caption file with h5py
@@ -48,5 +48,21 @@ def load_coco_dataset(data_dir=DATA_DIR, PCA_features=True):
         val_urls = np.asarray([line.strip() for line in f])
     data['val_urls'] = val_urls
 
+    # Maybe subsample the training data
+    if max_train is not None:
+        num_train = data['train_captions'].shape[0]
+        mask = np.random.randint(num_train, size=max_train)
+        data['train_captions'] = data['train_captions'][mask]
+        data['train_image_idxs'] = data['train_image_idxs'][mask]
+
     return data
 
+
+def sample_coco_minibatch(data, batch_size=100, split='train'):
+    split_size = data['%s_captions' % split].shape[0]
+    mask = np.random.choice(split_size, batch_size)
+    captions = data['%s_captions' % split][mask]
+    image_idxs = data['%s_image_idxs' % split][mask]
+    image_features = data['%s_features' % split][image_idxs]
+    urls = data['%s_urls' % split][image_idxs]
+    return captions, image_features, urls

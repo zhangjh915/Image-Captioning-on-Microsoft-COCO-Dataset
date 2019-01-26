@@ -56,8 +56,8 @@ def rnn_step_backward(dnext_h, cache):
     """
     x, prev_h, Wx, Wh, b, h = cache
     dtanh = (1 - h ** 2) * dnext_h
-    dx = np.dot(dtanh, Wx)
-    dprev_h = np.dot(dtanh, Wh)
+    dx = np.dot(dtanh, Wx.T)
+    dprev_h = np.dot(dtanh, Wh.T)
     dWx = np.dot(x.T, dtanh)
     dWh = np.dot(h.T, dtanh)
     db = np.sum(dtanh, axis=0)
@@ -81,7 +81,7 @@ def rnn_forward(x, h0, Wx, Wh, b):
     """
     N, T, D = x.shape
     _, H = h0.shape
-    np.swapaxes(x, 0, 1)  # swap axes for easier loops
+    x = np.swapaxes(x, 0, 1)  # swap axes for easier loops
     h = np.zeros((T, N, H))  # initialize h
     prev_h = h0
     cache = []
@@ -90,7 +90,7 @@ def rnn_forward(x, h0, Wx, Wh, b):
         prev_h = next_h
         cache.append(cache_)
         h[t] = prev_h
-    np.swapaxes(h, 0, 1)  # swap axes for correct format
+    h = np.swapaxes(h, 0, 1)  # swap axes for correct format
     return h, cache
 
 
@@ -107,12 +107,12 @@ def rnn_backward(dh, cache):
         dWh: gradient of weight matrix for hidden states with shape (H, H)
         db: gradient of bias with shape (H,)
     """
-    hd = dh.copy()  # this is very important!
+    dh = dh.copy()  # this is very important!
     N, T, H = dh.shape
     D = cache[0][0].shape[-1]  # extract parameter D fro initialization
-    np.swapaxes(dh, 0, 1)  # swap axes for easier loops
+    dh = np.swapaxes(dh, 0, 1)  # swap axes for easier loops
     # initializations for derivatives
-    dx, dh0, dWx, dWh, db = np.zeros((N, T, D)), np.zeros((N, H)), np.zeros((D, H)), np.zeros((H, H)), np.zeros((H,))
+    dx, dh0, dWx, dWh, db = np.zeros((T, N, D)), np.zeros((N, H)), np.zeros((D, H)), np.zeros((H, H)), np.zeros((H,))
     for t in range(T):
         dx[t], dprev_h, dWx_, dWh_, db_ = rnn_step_backward(dh[t], cache[t])
         # update parameters
