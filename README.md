@@ -21,7 +21,7 @@ Another note is that the images are not downloaded but read from URLs directly f
 
 The words in strings of the captions are encoded into integer IDs, and the captions are represented by a sequence of integers. The mapping between integer IDs and words is in the file `coco2014_vocab.json`, and the function `decode_captions` from the file `utils.py` can be used to convert numpy arrays of integer IDs back into strings.
 
-There are a couple special tokens - \<START>, \<END> representing the beginning and end of each caption respectively; \<UNK> representing rare words; and \<NULL> after \<END> tokens for padding indicating where no loss or gradient need to be computed.
+There are a couple special tokens - \<START>, \<END> representing the beginning and end of each caption respectively; \<UNK> representing rare words (small value in bag-of-word model); and \<NULL> after \<END> tokens for padding indicating where no loss or gradient need to be computed.
 
 ## Dataset Glimpse:
 Below are examples of the dataset which includes an image with a ground-truth caption with <START> and <END> tokens (some with <NULL> tokens).
