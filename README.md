@@ -13,7 +13,7 @@ A model of Image Captioning using CNN + Vanilla RNN/LSTM on [Microsoft COCO](htt
 `scipy >= 1.2`
 
 ## Dataset:
-The dataset consists of 80,000 training images and 40,000 validation images, each annotated with 5 captions written by workers on Amazon Mechanical Turk. The data for this repository can be downloaded [**HERE**](???????), which is around 1 GB. 
+The dataset consists of 80,000 training images and 40,000 validation images, each annotated with 5 captions written by workers on Amazon Mechanical Turk. The data for this repository can be downloaded [**HERE (Google Drive)**](https://drive.google.com/file/d/1NCbRIJDT12OoNff0wvI6H8gmwWqiIDKO/view) or [**HERE (Drop Box)**](https://www.dropbox.com/s/dngqe90t6owmsov/coco_captioning.zip?dl=0), which is around 1 GB. 
 
 Note that the dataset is not the original COCO dataset, but the preprocessed data with extracted features from the fc7 layer of the VGG-16 network pretrained on ImageNet. The feature files are stored in the files `train2014_vgg16_fc7.h5` and `val2014_vgg16_fc7.h5`. Besides, the dimensionality of the features are cut from 4096 to 512 using [PCA](https://en.wikipedia.org/wiki/Principal_component_analysis), which are stored in the files `train2014_vgg16_fc7_pca.h5` and `val2014_vgg16_fc7_pca.h5`.
 
