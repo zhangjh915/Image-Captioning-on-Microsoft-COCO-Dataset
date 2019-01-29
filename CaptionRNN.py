@@ -100,7 +100,7 @@ class RNNImageCaption(object):
 
         return loss, grads
 
-    def generate_captions(self, features, max_length):
+    def generate_captions(self, features, max_length=30):
         """
         Generate captions from the image features.
         Arguments:
@@ -121,7 +121,7 @@ class RNNImageCaption(object):
         # Generate captions
         h0 = np.dot(features, W_proj) + b_proj  # initial hidden state from image features - (N, H)
         captions[:, 0] = self.start  # set <START> tokens to the generated captions
-        capt = self.start * np.ones((N, 1))  # set <START> tokens to the generated word for each time step
+        capt = self.start * np.ones((N, 1), dtype=np.int32)  # set <START> tokens to the generated word for each time step
         prev_h = h0
         prev_c = np.zeros(h0.shape)  # initialize the cell state to zeros
         for t in range(max_length):
