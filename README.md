@@ -63,6 +63,10 @@ Backward pass of LSTMN can be found in the corresponding [code commend](https://
 
 To be finished...
 
+## Code Usage:
+1. Download the dataset from either Google Drive or Dropbox from the link above and put it in a folder named `data`;
+2. Modify `test.py` to train and save the model as well as show the plots of training and validation set.
+
 ## References:
 1. [https://www.cc.gatech.edu/classes/AY2019/cs7643_fall/hw3/](https://www.cc.gatech.edu/classes/AY2019/cs7643_fall/hw3/)
 2. [https://leonardoaraujosantos.gitbooks.io/artificial-inteligence/content/recurrent_neural_networks.html](https://leonardoaraujosantos.gitbooks.io/artificial-inteligence/content/recurrent_neural_networks.html)
